@@ -2,7 +2,11 @@ package com.github.ccmagic.banner.banner;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.Gravity;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,6 +26,8 @@ public class BannerView extends FrameLayout {
     private BannerAdapter bannerAdapter;
     private BannerViewPager viewPager;
 
+    private RadioGroup radioGroupIndicator;
+
     public BannerView(@NonNull Context context) {
         super(context);
     }
@@ -33,7 +39,6 @@ public class BannerView extends FrameLayout {
     public BannerView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
-
 
     /**
      * 控制自动轮播
@@ -50,11 +55,6 @@ public class BannerView extends FrameLayout {
         }
     };
 
-
-    public void setIndicatorLayoutparam(FrameLayout.LayoutParams layoutparam) {
-
-    }
-
     /**
      *
      */
@@ -69,16 +69,19 @@ public class BannerView extends FrameLayout {
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+                //
             }
 
             @Override
             public void onPageSelected(int position) {
                 if (position == 0) {
                     postDelayed(() -> viewPager.setCurrentItem(bannerAdapter.pageCount(), false), 200);
-
+                    radioGroupIndicator.check(bannerAdapter.pageCount() - 1);
                 } else if (position == bannerAdapter.pageCount() + 1) {
                     postDelayed(() -> viewPager.setCurrentItem(1, false), 200);
+                    radioGroupIndicator.check(0);
+                } else {
+                    radioGroupIndicator.check(position - 1);
                 }
             }
 
@@ -88,12 +91,37 @@ public class BannerView extends FrameLayout {
             }
         });
         addView(viewPager);
+
+        initIndicator();
         //
         if (bannerAdapter.pageCount() != 1) {
             viewPager.setCurrentItem(1);
             postDelayed(runnable, 2000);
         }
+    }
 
+    /**
+     * 初始化指示器
+     */
+    private void initIndicator() {
+        radioGroupIndicator = new RadioGroup(getContext());
+        radioGroupIndicator.setOrientation(RadioGroup.HORIZONTAL);
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.gravity = Gravity.BOTTOM;
+        radioGroupIndicator.setGravity(Gravity.CENTER);
+        radioGroupIndicator.setLayoutParams(layoutParams);
+        for (int i = 0; i < bannerAdapter.pageCount(); i++) {
+            RadioButton radioButton = bannerAdapter.indicator(getContext(), i);
+            if (radioButton == null) {
+                radioButton = new RadioButton(getContext());
+            }
+            if (i == 0) {
+                radioButton.setChecked(true);
+            }
+            radioButton.setId(i);
+            radioGroupIndicator.addView(radioButton);
+        }
+        addView(radioGroupIndicator);
     }
 
     /**

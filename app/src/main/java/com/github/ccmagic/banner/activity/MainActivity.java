@@ -1,10 +1,12 @@
 package com.github.ccmagic.banner.activity;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,8 +41,12 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            protected View indicator() {
-                return null;
+            public RadioButton indicator(Context context, int position) {
+                RadioButton radioButton = new RadioButton(context);
+                radioButton.setText(("" + position));
+
+                radioButton.setTextColor(Color.WHITE);
+                return radioButton;
             }
         });
         bannerView.setOnItemClickListener(position -> Toast.makeText(this, position + "", Toast.LENGTH_SHORT).show());

@@ -3,6 +3,7 @@ package com.github.ccmagic.banner.banner;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
@@ -20,9 +21,12 @@ public abstract class BannerAdapter extends PagerAdapter {
         this.context = context;
     }
 
+    /**
+     * 轮播图页数
+     */
     public abstract int pageCount();
 
-    public void setOnItemClickListener(BannerView.OnItemClickListener listener) {
+    void setOnItemClickListener(BannerView.OnItemClickListener listener) {
         onItemClickListener = listener;
     }
 
@@ -34,6 +38,7 @@ public abstract class BannerAdapter extends PagerAdapter {
         if (pageCount() == 1) {
             return 1;
         }
+        //轮播图页数加上收尾的过度添加的两页
         return pageCount() + 2;
     }
 
@@ -65,7 +70,10 @@ public abstract class BannerAdapter extends PagerAdapter {
      */
     protected abstract View instantiateItem(Context context, int position);
 
-    protected abstract View indicator();
+    /**
+     * 指示器
+     */
+    public abstract RadioButton indicator(Context context, int position);
 
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
