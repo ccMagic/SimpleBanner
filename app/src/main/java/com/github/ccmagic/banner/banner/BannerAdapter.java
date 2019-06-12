@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
@@ -73,7 +74,7 @@ public abstract class BannerAdapter extends PagerAdapter {
     /**
      * 指示器
      */
-    public abstract RadioButton indicator(Context context, int position);
+    public abstract RadioButton indicator(Context context, RadioGroup radioGroup,int position);
 
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {

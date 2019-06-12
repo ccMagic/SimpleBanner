@@ -7,6 +7,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public RadioButton indicator(Context context, int position) {
+            public RadioButton indicator(Context context, RadioGroup radioGroup, int position) {
                 RadioButton radioButton = new RadioButton(context);
                 radioButton.setText(("" + position));
                 radioButton.setTextColor(Color.WHITE);

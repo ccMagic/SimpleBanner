@@ -106,12 +106,12 @@ public class BannerView extends FrameLayout {
     private void initIndicator() {
         radioGroupIndicator = new RadioGroup(getContext());
         radioGroupIndicator.setOrientation(RadioGroup.HORIZONTAL);
-        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParams.gravity = Gravity.BOTTOM;
         radioGroupIndicator.setGravity(Gravity.CENTER);
         radioGroupIndicator.setLayoutParams(layoutParams);
         for (int i = 0; i < bannerAdapter.pageCount(); i++) {
-            RadioButton radioButton = bannerAdapter.indicator(getContext(), i);
+            RadioButton radioButton = bannerAdapter.indicator(getContext(),radioGroupIndicator, i);
             if (radioButton == null) {
                 radioButton = new RadioButton(getContext());
             }
