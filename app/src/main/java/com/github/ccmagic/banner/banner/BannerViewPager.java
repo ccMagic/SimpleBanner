@@ -9,17 +9,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
 
-public class BannerViewPager extends ViewPager {
+class BannerViewPager extends ViewPager {
 
     private static final String TAG = "BannerViewPager";
 
     private BannerView bannerView;
 
-    public BannerViewPager(@NonNull Context context) {
+    BannerViewPager(@NonNull Context context) {
         super(context);
     }
 
-    public BannerViewPager(@NonNull Context context, @Nullable AttributeSet attrs) {
+    BannerViewPager(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 

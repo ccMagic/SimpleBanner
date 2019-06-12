@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
             public RadioButton indicator(Context context, int position) {
                 RadioButton radioButton = new RadioButton(context);
                 radioButton.setText(("" + position));
-
                 radioButton.setTextColor(Color.WHITE);
                 return radioButton;
             }
